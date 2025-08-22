@@ -1,5 +1,148 @@
-name: helloworld # 这是你的插件的唯一识别名。
-desc: 这是 AstrBot 的默认插件，支持关键词回复。 # 插件简短描述
-version: v1.3 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Soulter # 作者
-repo: https://github.com/Soulter/helloworld # 插件的仓库地址
+name: xiuxian # 这是你的插件的唯一识别名。
+desc: 修仙养成游戏插件，体验修仙之路的乐趣 # 插件简短描述
+version: v2.0.0 # 插件版本号。格式：v1.1.1 或者 v1.1
+author: lithium # 作者
+repo: https://github.com/lithium/astrbot_plugin_xiuxian # 插件的仓库地址
+
+# 插件配置项
+configs:
+  # LLM 配置
+  llm_provider:
+    name: "LLM 服务商"
+    desc: "选择使用的 AI 服务商"
+    type: "select"
+    default: "mock"
+    options:
+      - value: "mock"
+        label: "模拟模式（测试用）"
+      - value: "openai"
+        label: "OpenAI GPT"
+      - value: "claude"
+        label: "Anthropic Claude"
+      - value: "local"
+        label: "本地模型"
+  
+  llm_api_key:
+    name: "API 密钥"
+    desc: "LLM 服务的 API 密钥（模拟模式下可不填）"
+    type: "string"
+    default: ""
+    placeholder: "请输入您的 API 密钥"
+  
+  llm_model:
+    name: "模型名称"
+    desc: "使用的具体模型名称"
+    type: "string"
+    default: "gpt-3.5-turbo"
+    placeholder: "如: gpt-3.5-turbo, claude-3-haiku-20240307"
+  
+  llm_base_url:
+    name: "API 基础地址"
+    desc: "自定义 API 基础地址（可选）"
+    type: "string"
+    default: ""
+    placeholder: "如: https://api.openai.com/v1"
+  
+  # 游戏平衡配置
+  base_cultivation_exp:
+    name: "基础修炼经验"
+    desc: "每次修炼获得的基础经验值"
+    type: "int"
+    default: 10
+    min: 1
+    max: 100
+  
+  breakthrough_success_rate:
+    name: "突破基础成功率"
+    desc: "突破的基础成功率（0.1-0.9）"
+    type: "float"
+    default: 0.7
+    min: 0.1
+    max: 0.9
+  
+  cultivation_cooldown:
+    name: "修炼冷却时间"
+    desc: "修炼冷却时间（分钟）"
+    type: "int"
+    default: 30
+    min: 5
+    max: 180
+  
+  adventure_cooldown:
+    name: "历练冷却时间"
+    desc: "历练冷却时间（分钟）"
+    type: "int"
+    default: 60
+    min: 10
+    max: 360
+  
+  battle_cooldown:
+    name: "战斗冷却时间"
+    desc: "战斗冷却时间（分钟）"
+    type: "int"
+    default: 5
+    min: 1
+    max: 60
+  
+  # LLM 生成参数
+  llm_max_tokens:
+    name: "LLM 最大生成长度"
+    desc: "AI 生成文本的最大长度"
+    type: "int"
+    default: 500
+    min: 100
+    max: 2000
+  
+  llm_temperature:
+    name: "LLM 创造性"
+    desc: "AI 生成的创造性程度（0.0-2.0）"
+    type: "float"
+    default: 0.8
+    min: 0.0
+    max: 2.0
+  
+  # 功能开关
+  enable_ai_stories:
+    name: "启用 AI 故事生成"
+    desc: "是否启用 AI 生成个性化故事"
+    type: "bool"
+    default: true
+  
+  enable_daily_fortune:
+    name: "启用每日运势"
+    desc: "是否启用每日运势占卜功能"
+    type: "bool"
+    default: true
+  
+  enable_sect_system:
+    name: "启用宗门系统"
+    desc: "是否启用宗门功能"
+    type: "bool"
+    default: true
+  
+  enable_task_system:
+    name: "启用任务系统"
+    desc: "是否启用每日/每周任务"
+    type: "bool"
+    default: true
+  
+  # 高级配置
+  max_inventory_size:
+    name: "背包最大容量"
+    desc: "玩家背包最大物品数量"
+    type: "int"
+    default: 100
+    min: 20
+    max: 500
+  
+  enable_pvp:
+    name: "启用玩家对战"
+    desc: "是否允许玩家之间进行战斗"
+    type: "bool"
+    default: true
+  
+  debug_mode:
+    name: "调试模式"
+    desc: "启用调试模式（显示更多日志信息）"
+    type: "bool"
+    default: false
